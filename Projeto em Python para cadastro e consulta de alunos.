@@ -1,0 +1,102 @@
+# Sistema de Cadastro e Consulta de Alunos
+
+alunos = []
+
+def cadastrar_aluno():
+    print("\n=== Cadastro de Aluno ===")
+
+    nome = input("Nome: ")
+    idade = int(input("Idade: "))
+    curso = input("Curso: ")
+    matricula = input("Matrícula: ")
+
+    # Verifica se a matrícula já existe
+    for aluno in alunos:
+        if aluno["matricula"] == matricula:
+            print("Matrícula já cadastrada!")
+            return
+
+    aluno = {
+        "nome": nome,
+        "idade": idade,
+        "curso": curso,
+        "matricula": matricula
+    }
+
+    alunos.append(aluno)
+    print("Aluno cadastrado com sucesso!\n")
+
+
+def listar_alunos():
+    print("\n=== Lista de Alunos ===")
+
+    if len(alunos) == 0:
+        print("Nenhum aluno cadastrado.\n")
+        return
+
+    for aluno in alunos:
+        print(f"""
+Nome: {aluno['nome']}
+Idade: {aluno['idade']}
+Curso: {aluno['curso']}
+Matrícula: {aluno['matricula']}
+-------------------------
+""")
+
+
+def consultar_aluno():
+    print("\n=== Consulta de Aluno ===")
+    matricula = input("Digite a matrícula: ")
+
+    for aluno in alunos:
+        if aluno["matricula"] == matricula:
+            print("\nAluno encontrado:")
+            print(f"Nome: {aluno['nome']}")
+            print(f"Idade: {aluno['idade']}")
+            print(f"Curso: {aluno['curso']}")
+            print(f"Matrícula: {aluno['matricula']}\n")
+            return
+
+    print("Aluno não encontrado.\n")
+
+
+def remover_aluno():
+    print("\n=== Remover Aluno ===")
+    matricula = input("Digite a matrícula: ")
+
+    for aluno in alunos:
+        if aluno["matricula"] == matricula:
+            alunos.remove(aluno)
+            print("Aluno removido com sucesso!\n")
+            return
+
+    print("Aluno não encontrado.\n")
+
+
+def menu():
+    while True:
+        print("========== MENU ==========")
+        print("1 - Cadastrar aluno")
+        print("2 - Listar alunos")
+        print("3 - Consultar aluno")
+        print("4 - Remover aluno")
+        print("5 - Sair")
+
+        opcao = input("Escolha uma opção: ")
+
+        if opcao == "1":
+            cadastrar_aluno()
+        elif opcao == "2":
+            listar_alunos()
+        elif opcao == "3":
+            consultar_aluno()
+        elif opcao == "4":
+            remover_aluno()
+        elif opcao == "5":
+            print("Sistema encerrado.")
+            break
+        else:
+            print("Opção inválida!\n")
+
+
+menu()
